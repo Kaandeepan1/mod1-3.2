@@ -1,4 +1,13 @@
 terraform {
+  required_version = ">= 1.5.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
+
   backend "s3" {
     bucket = "deepan-mod3-2"
     key    = "mod1-3.2/terraform.tfstate"
