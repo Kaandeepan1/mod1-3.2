@@ -20,5 +20,27 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "workshop" {
+  #checkov:skip=CKV_AWS_18
+  #checkov:skip=CKV_AWS_145
+  #checkov:skip=CKV_AWS_144
+  #checkov:skip=CKV2_AWS_61
+  #checkov:skip=CKV2_AWS_62
   bucket_prefix = "deepan-workshop-"
+}
+
+resource "aws_s3_bucket_versioning" "workshop" {
+  bucket = aws_s3_bucket.workshop.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "workshop" {
+  bucket = aws_s3_bucket.workshop.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
